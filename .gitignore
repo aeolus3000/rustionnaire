@@ -13,3 +13,6 @@ Cargo.lock
 # Added by cargo
 
 /target
+
+# don't check-in intelliJ
+/.idea
