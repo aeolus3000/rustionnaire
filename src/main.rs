@@ -1,3 +1,6 @@
 fn main() {
-    println!("Hello, world!");
+    filename = getFilenameFromStdIn();
+    questionnaire = readQuestionnair(filename);
+    result = executeQuestionnaire(questionnaire);
+    printResult(result);
 }
