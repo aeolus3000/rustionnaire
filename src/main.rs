@@ -8,7 +8,6 @@ fn main() {
      */
 }
 
-
 struct Questionnaire {
     items: Vec<QuestItem>,
 }
@@ -16,7 +15,7 @@ struct Questionnaire {
 struct QuestItem {
     question: String,
     answers: Vec<String>,
-    correctAnswer: u32,
+    correct_answer: u32,
 }
 
 
@@ -25,7 +24,29 @@ struct Evaluation {
     given_answers: Vec<i32>,
 }
 
-struct Engine {}
+trait UserIO {
+    fn new() -> Self;
+    fn collect_answer(&self, quest_item: QuestItem) -> i32;
+}
+
+struct TestUserIO {
+
+}
+
+impl UserIO for TestUserIO {
+    fn new() -> TestUserIO {
+        TestUserIO {}
+    }
+
+    fn collect_answer(&self, quest_item: QuestItem) -> i32 {
+        0
+    }
+}
+
+struct Engine {
+    //TODO: we want virtual dispatch here
+    user_io: TestUserIO,
+}
 
 impl Engine {
     fn execute_questionnaire(&self, questionnaire: Questionnaire) -> Evaluation {
@@ -79,8 +100,11 @@ mod tests {
             items: vec![],
         };
 
+        // and: a user IO
+        let user_io: TestUserIO = UserIO::new();
+
         // and: an engine
-        let engine = Engine {};
+        let engine = Engine {user_io};
 
         // when: executing the questionnaire
         let evaluation = engine.execute_questionnaire(questionnaire);
@@ -99,7 +123,7 @@ mod tests {
         let quest_item = QuestItem {
             question: String::from("how old are you?"),
             answers,
-            correctAnswer: 2,
+            correct_answer: 2,
         };
 
         // and: a questionnaire with questions
@@ -107,8 +131,11 @@ mod tests {
             items: vec![quest_item],
         };
 
+        // and: a user IO
+        let user_io = TestUserIO{};
+
         // and: an engine
-        let engine = Engine {};
+        let engine = Engine {user_io};
 
         // when: executing the questionnaire
         let evaluation = engine.execute_questionnaire(questionnaire);
