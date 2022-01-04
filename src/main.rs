@@ -37,6 +37,7 @@ impl Engine {
     fn execute_questionnaire(&self, questionnaire: Questionnaire) -> Evaluation {
         //for each question in Questionnaire call execute_question
         //and: add result to evaluation
+        return Evaluation()
     }
 
     fn execute_quest_item(&self, item: QuestItem) -> Box<EvalSnippet> {
@@ -58,6 +59,8 @@ impl Engine {
         //and: evaluation text your answer vs correct answer
 
 
+
+        // ä
     }
 
     fn show(&self, evaluation: Evaluation) {
